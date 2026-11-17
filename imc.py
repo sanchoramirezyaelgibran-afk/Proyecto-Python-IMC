@@ -1,14 +1,28 @@
-nombre = input("¿Cómo te llamas? ")
-apellido = input("¿Cuál es tu apellido? ")
-edad = int(input("¿Cuántos años tienes? "))
-peso = float(input("¿Cuánto pesas en kg? "))
-estatura = float(input("¿Cuánto mides en metros? (ej. 1.70) "))
+def pedir_numero(mensaje):
+    """Pide un número y repite hasta que sea válido."""
+    while True:
+        valor = input(mensaje).strip()
 
-imc = peso / estatura ** 2
+        if valor == "":  # campo vacío
+            print("Error: el campo no puede estar vacío.")
+            continue
 
-print("===== RESUMEN =====")
-print(f"Nombre: {nombre.title()} {apellido.title()}")
-print(f"Edad: {edad} años")
-print(f"Peso: {peso} kg")
-print(f"Estatura: {estatura} m")
-print(f"IMC: {imc:.2f}")
+        try:
+            numero = float(valor)  # falla si hay letras
+        except ValueError:
+            print("Error: escribe solo números.")
+            continue
+
+        if numero <= 0:
+            print("Error: el valor debe ser mayor que 0.")
+            continue
+
+        return numero
+
+
+edad = pedir_numero("Edad: ")
+peso = pedir_numero("Peso (kg): ")
+estatura = pedir_numero("Estatura (m): ")
+
+imc = peso / (estatura ** 2)       
+print(f"A los {int(edad)} años, tu IMC es: {imc:.2f}")
